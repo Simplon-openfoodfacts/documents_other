@@ -1,0 +1,101 @@
+Voici comment diviser votre Notebook en plusieurs parties, avec des sections bien définies pour chaque étape, incluant l'importation des bibliothèques, la création des dossiers et la division du fichier CSV en chunks. Chaque partie est accompagnée d'explications claires.
+
+---
+
+### **1. Importation des bibliothèques**
+
+La première section est dédiée à l'importation des bibliothèques nécessaires pour manipuler les fichiers et les données.
+
+```python
+# 1. Importation des bibliothèques
+
+import os
+import pandas as pd
+
+# Bibliothèques nécessaires :
+# - os : pour gérer les fichiers et répertoires.
+# - pandas : pour lire et manipuler les données CSV.
+```
+
+---
+
+### **2. Création du dossier pour stocker les chunks**
+
+Cette partie crée un dossier s'il n'existe pas déjà. Cela garantit que les chunks seront stockés dans le bon répertoire.
+
+```python
+# 2. Création du dossier "02_chunk-CSV" pour stocker les chunks
+
+# Chemin du dossier où les chunks seront sauvegardés
+output_directory = '02_chunk-CSV'
+
+# Fonction pour créer le dossier s'il n'existe pas
+def creer_dossier_si_absent(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f"Dossier {directory} créé.")
+    else:
+        print(f"Dossier {directory} déjà existant.")
+
+# Créer le dossier pour les chunks
+creer_dossier_si_absent(output_directory)
+```
+
+---
+
+### **3. Définir le chemin du fichier CSV et la taille des chunks**
+
+Ici, nous définissons le chemin du fichier CSV à traiter ainsi que la taille des chunks. Chaque chunk contiendra 100 000 lignes.
+
+```python
+# 3. Définir le chemin du fichier CSV et la taille des chunks
+
+# Chemin du fichier CSV à découper
+csv_file_path = 'en.openfoodfacts.org.products.csv'  # Assurez-vous que ce fichier est dans le bon répertoire
+
+# Taille du chunk (100 000 lignes par chunk)
+chunk_size = 100000
+```
+
+---
+
+### **4. Lecture du CSV et division en chunks**
+
+La fonction principale qui lit le fichier CSV et le divise en morceaux de 100 000 lignes. Chaque chunk sera sauvegardé dans le dossier `02_chunk-CSV`.
+
+```python
+# 4. Lecture du fichier CSV et division en chunks
+
+# Fonction pour lire et diviser le fichier CSV en chunks
+def diviser_fichier_en_chunks(file_path, chunk_size, output_directory):
+    # Lire le fichier CSV en chunks
+    chunk_iter = pd.read_csv(file_path, sep='\t', chunksize=chunk_size, low_memory=False)
+    
+    for i, chunk in enumerate(chunk_iter):
+        # Sauvegarder chaque chunk dans un fichier CSV séparé
+        chunk_file_name = os.path.join(output_directory, f'chunk_{i+1}.csv')
+        chunk.to_csv(chunk_file_name, index=False)
+        print(f'Chunk {i+1} sauvegardé dans {chunk_file_name}.')
+
+# Exécuter le découpage en chunks
+diviser_fichier_en_chunks(csv_file_path, chunk_size, output_directory)
+```
+
+---
+
+### **5. Résumé et Conclusion**
+
+Une fois le code exécuté, le fichier CSV sera découpé en plusieurs morceaux (chunks) et chaque chunk sera sauvegardé dans le dossier `02_chunk-CSV`.
+
+---
+
+### Exécution complète
+
+Pour résumer, votre Notebook comportera les sections suivantes :
+
+1. **Importation des bibliothèques**
+2. **Création du dossier pour les chunks**
+3. **Définition du chemin du fichier CSV et de la taille des chunks**
+4. **Lecture et découpage du CSV en chunks**
+
+Une fois tout exécuté, vos chunks seront stockés dans le dossier `02_chunk-CSV`.
