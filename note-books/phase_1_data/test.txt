@@ -1,19 +1,86 @@
+Pour simplifier le notebook en excluant uniquement les pays non-latins et en triant par ordre croissant, voici la structure que vous pouvez suivre :
 
+---
 
+### **Notebook : Comptage des Pays en Langue Latine dans les Données de Produit**
 
+---
 
+### **1. Importation des bibliothèques**
 
 ```python
-
+import os
+import pandas as pd
+import re
 ```
 
 ---
 
+### **2. Définition de la fonction de comptage des pays**
+
+Cette fonction lit les fichiers dans le dossier des chunks, filtre les noms de pays pour exclure ceux en caractères non-latins, compte les occurrences de chaque pays, et organise le résultat par ordre croissant.
 
 ```python
+def compter_pays(input_directory):
+    pays_counts = {}
 
+    # Parcourir les fichiers dans le dossier des chunks
+    for file_name in os.listdir(input_directory):
+        input_file_path = os.path.join(input_directory, file_name)
+        
+        # Lire chaque chunk
+        chunk_iter = pd.read_csv(input_file_path, sep=',', chunksize=10000, low_memory=False, on_bad_lines="skip")
+        
+        for chunk in chunk_iter:
+            if 'countries' in chunk.columns:
+                # Nettoyer les noms de pays en ne gardant que ceux avec des caractères latins
+                chunk['countries_cleaned'] = chunk['countries'].apply(
+                    lambda x: [country.strip() for country in re.split(r',|\s', str(x)) if re.match(r'^[a-zA-Z\s]+$', country)]
+                )
+                
+                # Compter les occurrences des pays
+                for countries_list in chunk['countries_cleaned']:
+                    for country in countries_list:
+                        if country:  # Ignorer les valeurs vides
+                            pays_counts[country] = pays_counts.get(country, 0) + 1
 
+    # Convertir le dictionnaire en DataFrame et trier par ordre croissant
+    pays_df = pd.DataFrame(list(pays_counts.items()), columns=['Pays', 'Nombre de produits']).sort_values(by='Nombre de produits')
+    
+    return pays_df
 ```
 
 ---
 
+### **3. Enregistrement du DataFrame dans un fichier CSV**
+
+Dans cette cellule, nous enregistrons le tableau résultant dans un fichier CSV pour un usage ultérieur.
+
+```python
+# Enregistrer le DataFrame dans un fichier CSV
+output_csv_path = 'note-books/phase_1_data/08_data_countries/pays_counts.csv'
+pays_df.to_csv(output_csv_path, index=False)
+print(f"Tableau des pays enregistré dans {output_csv_path}")
+```
+
+---
+
+### **4. Exécution de la fonction avec le dossier des données de chunk**
+
+Dans cette cellule, nous définissons le dossier d'entrée et exécutons la fonction de comptage.
+
+```python
+# Définir le répertoire des chunks et exécuter la fonction
+input_directory = 'note-books/phase_1_data/07_chunk_no_redundant_columns'
+pays_df = compter_pays(input_directory)
+```
+
+---
+
+### **Explications :**
+
+- **Comptage des pays** : La fonction lit les données, filtre les noms de pays pour ne garder que ceux en caractères latins, et compte les occurrences.
+- **Organisation des données** : Le tableau final est trié par ordre croissant du nombre de produits par pays.
+- **Enregistrement CSV** : Le résultat est enregistré dans un fichier CSV pour faciliter l'export.
+
+Après exécution, vous obtiendrez un fichier CSV (`pays_counts.csv`) contenant la liste des pays en langue latine par ordre croissant, avec leur nombre de produits associés.
