@@ -1,0 +1,47 @@
+Informations de Valeurs Manquantes
+
+                             Valeurs manquantes  Pourcentage manquant (%)
+code                                          0                  0.000000
+url                                           0                  0.000000
+creator                                       0                  0.000000
+created_t                                     0                  0.000000
+created_datetime                              0                  0.000000
+last_modified_t                               0                  0.000000
+last_modified_datetime                        0                  0.000000
+last_modified_by                           1217                  0.728485
+last_updated_t                             2034                  1.217534
+last_updated_datetime                      2034                  1.217534
+product_name                               1634                  0.978098
+brands                                    18889                 11.306784
+categories                                    0                  0.000000
+countries                                   777                  0.465105
+nutriscore_score                              0                  0.000000
+nutriscore_grade                              0                  0.000000
+pnns_groups_1                                 0                  0.000000
+pnns_groups_2                                 0                  0.000000
+food_groups                               22155                 13.261782
+states                                        0                  0.000000
+ecoscore_grade                                5                  0.002993
+completeness                                  0                  0.000000
+last_image_t                               2218                  1.327675
+last_image_datetime                        2218                  1.327675
+main_category                                 0                  0.000000
+image_url                                  8858                  5.302318
+image_small_url                            8858                  5.302318
+image_nutrition_url                       44006                 26.341592
+image_nutrition_small_url                 44006                 26.341592
+energy-kcal_100g                           8191                  4.903058
+energy_100g                                  14                  0.008380
+fat_100g                                     22                  0.013169
+saturated-fat_100g                          501                  0.299894
+carbohydrates_100g                          143                  0.085599
+sugars_100g                                 263                  0.157429
+proteins_100g                                20                  0.011972
+salt_100g                                    70                  0.041901
+sodium_100g                                  70                  0.041901
+nutrition-score-fr_100g                       0                  0.000000
+quantity                                 160623                 96.147469
+ecoscore_score                           139610                 83.569278
+unique_scans_n                           160721                 96.206131
+image_ingredients_url                    152737                 91.426981
+image_ingredients_small_url              152737                 91.426981
