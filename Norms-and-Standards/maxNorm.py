@@ -11,7 +11,7 @@ nutritional_values_max = {
     'cholesterol_100g': 300,
     'carbohydrates_100g': 50,
     'sugars_100g': 22.5,
-    'fiber_100g': 35,  # Not specified
+    'fiber_100g': 35,  
     'proteins_100g': 20,
     'salt_100g': 3,
     'sodium_100g': 1200,
