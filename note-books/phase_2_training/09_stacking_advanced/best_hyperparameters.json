@@ -1,0 +1,1 @@
+{"xgboost__n_estimators": 100, "xgboost__max_depth": 3, "xgboost__learning_rate": 0.1, "random_forest__n_estimators": 300, "random_forest__max_depth": null, "lightgbm__n_estimators": 200, "lightgbm__max_depth": 10, "lightgbm__learning_rate": 0.1}
