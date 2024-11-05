@@ -1,2 +1,0 @@
-Mean Squared Error (MSE) : 1.1688407314402922
-Coefficient de détermination (R²) : 0.3531688338692405
